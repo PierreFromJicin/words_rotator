@@ -1,16 +1,28 @@
-# This is a sample Python script.
+def word_rotator_core(string_in=""):
+    if type(string_in) is not str:
+        return False
+    words_rev_list = []
+    words_list = string_in.split(" ")
+    number_of_words = len(words_list)
+    print(f"word_list: {words_list} \nnumber_of_words: {number_of_words}")
+    for word in words_list:
+        print(word)
+        word_l = list(word)
+        print(word_l)
+        word_l.reverse()
+        print(word_l)
+        word_r = ""
+        for _l in range(len(word_l)):
+            if word_l[_l] != ".":
+                word_r += word_l[_l]
+            print(word_r)
+        words_rev_list.append(word_r.lower())
+    string_out = ""
+    for word_rl in range(len(words_rev_list)):
+        string_out += words_rev_list[word_rl] + " "
+    string_out = (string_out[0: -2] + ".").capitalize()
+    return string_out
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
+print(word_rotator_core("This is the testing sentence."))
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
