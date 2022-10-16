@@ -4,10 +4,10 @@ def word_rotator_core(string_in=""):
     :param string_in:
     :return: string_out or False
     """
-    if type(string_in) is not str:                                                  # protection for a wrong input
+    if type(string_in) is not str:                          # protection for a wrong input
         return False
 
-    words_list = string_in.split(" ")                                               # data preparing
+    words_list = string_in.split(" ")                       # data preparing
     words_rev_list = []
     _tmp = ""
 
