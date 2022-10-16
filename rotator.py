@@ -23,5 +23,5 @@ def word_rotator_core(string_in=""):
     for word_rl in range(len(words_rev_list)):
         string_out += words_rev_list[word_rl] + " "         # Building output string
 
-    string_out = (string_out[0: -2] + ".").capitalize()     # Prepare output string
+    string_out = (string_out[0: -1] + ".").capitalize()     # Prepare output string
     return string_out

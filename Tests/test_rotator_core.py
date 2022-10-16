@@ -2,7 +2,7 @@ from rotator import word_rotator_core
 
 
 def test_word_rotator_core_positive():
-	assert word_rotator_core("This is the testing sentence.") == "Siht si eht gnitset ecnetne."
+	assert word_rotator_core("This is the testing sentence.") == "Siht si eht gnitset ecnetnes."
 
 
 def test_word_rotator_core_negative():
