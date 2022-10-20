@@ -20,7 +20,9 @@ def word_rotator_core(string_in=""):
             if word_l[_l] in ".!?":                         # removing of end mark
                 _tmp = word_l[_l]
             elif word_l[_l] in ",":
-                _commas.append(word_l[_l])
+                _commas.append(1)
+            elif word_l[_l] not in ",":
+                _commas.append(0)
             else:
                 word_r += word_l[_l]
         words_rev_list.append(word_r.lower())               # finalize list of words
