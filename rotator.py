@@ -20,7 +20,7 @@ def word_rotator_core(string_in=""):
         for _l in range(len(word_l)):
             if word_l[_l] in ".!?":                         # removing of end mark
                 _tmp = word_l[_l]
-            elif word_l[_l] == ",":
+            if word_l[_l] == ",":
                 _comma_flag = True
             else:
                 word_r += word_l[_l]
