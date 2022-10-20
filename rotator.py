@@ -26,6 +26,7 @@ def word_rotator_core(string_in=""):
                 word_r += word_l[_l]
         if _comma_flag is True:
             _commas.append(1)
+            _comma_flag = False
         else:
             _commas.append(0)
         words_rev_list.append(word_r.lower())               # finalize list of words
