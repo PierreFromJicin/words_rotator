@@ -6,4 +6,4 @@ def test_word_rotator_core_positive():
 
 
 def test_word_rotator_core_negative():
-	assert word_rotator_core(7) is False
+	assert word_rotator_core(7) == "WRC exception: 7 is not a string"
