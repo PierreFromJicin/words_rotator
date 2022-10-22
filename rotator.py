@@ -1,7 +1,8 @@
 class CustomException(Exception):
-    def __int__(self, exc_object):
+    def __init__(self, exc_object):
         message = f"WRC exception: {exc_object} is not a string"
         super().__init__(message)
+        print(message)
 
 
 def word_rotator_core(string_in):
