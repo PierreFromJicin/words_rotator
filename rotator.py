@@ -1,6 +1,6 @@
-class CustomException(Exception):
+class WRCoreException(Exception):
     def __init__(self, exc_object):
-        message = f"WRC exception: {exc_object} is not a string"
+        message = f"Word rotator core exception: {exc_object} is not a string!"
         super().__init__(message)
         print(message)
 
@@ -9,11 +9,10 @@ def word_rotator_core(string_in):
     """
     This method rotate a letters in a words in a sentence
     :param string_in:
-    :return: string_out or False and Exception message
+    :return: string_out or Exception with message
     """
     if type(string_in) is not str:                          # protection for a wrong input
-        raise CustomException(string_in)
-        # return False
+        raise WRCoreException(string_in)
 
     words_list = string_in.split(" ")                       # data preparing
     words_rev_list: list = []

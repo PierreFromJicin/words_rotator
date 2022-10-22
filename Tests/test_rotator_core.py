@@ -9,5 +9,4 @@ def test_word_rotator_core_positive():
 
 def test_word_rotator_core_negative():
 	with pytest.raises(Exception):
-		assert word_rotator_core(7) == "WRC exception: 7 is not a string"
-	# assert word_rotator_core(7) == "WRC exception: 7 is not a string"
+		assert word_rotator_core(False) == "Word rotator core exception: False is not a string"
