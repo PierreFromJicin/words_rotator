@@ -6,9 +6,8 @@ try:
 	print(r_func(False))
 	# print(r_func(input("Enter a sentence or a word: ")))
 
-except rotator.WRCoreException:
-	pass
-	# print(rotator.WRCoreException)
+except rotator.WRCoreException as err:
+	print(err)
 
 # TODO 1. throwing exception in word_rotator_core() method
 # TODO 2. capital letter detector

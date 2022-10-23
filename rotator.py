@@ -2,7 +2,6 @@ class WRCoreException(Exception):
     def __init__(self, exc_object):
         message = f"Word rotator core exception: {exc_object} is not a string!"
         super().__init__(message)
-        print(message)
 
 
 def word_rotator_core(string_in):
