@@ -1,3 +1,5 @@
+import pytest
+
 from rotator import word_rotator_core
 
 
@@ -6,4 +8,5 @@ def test_word_rotator_core_positive():
 
 
 def test_word_rotator_core_negative():
-	assert word_rotator_core(7) is False
+	with pytest.raises(Exception):
+		assert word_rotator_core(False) == "Word rotator core exception: False is not a string"
