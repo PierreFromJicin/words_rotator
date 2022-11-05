@@ -28,39 +28,47 @@ def word_rotator_core(string_in):
         for _l in range(len(word_l)):
             if word_l[_l] in ".!?":                                 # removing of end mark
                 _tmp = word_l[_l]
-            elif word_l[_l] == ",":                                 # commas detector
+            elif word_l[_l] == ",":
+                # commas detector
                 _comma_flag = True
-            elif word_l[_l].isupper:()                              # capital letter detector
-                _capital_flag: = True
+            elif word_l[_l].isupper():                                # capital letter detector
+                _capital_flag = True
                 word_r += word_l[_l]
             else:
                 word_r += word_l[_l]
-        if _comma_flag is True:                                     # commas stack
-            _commas.append(1)
-            _comma_flag = False
-        elif _capital_flag is True:                                 # capital stack
-            _capital.append(1)
-            _capital_flag = False
+        if (_comma_flag is True) or (_capital_flag is True):                                     # commas stack
+            if (_comma_flag is True) and (_capital_flag is True):
+                _commas.append(1)
+                _capital.append(1)
+                _comma_flag = False
+                _capital_flag = False
+                words_rev_list.append(word_r.lower())
+            elif _comma_flag is True:                                 # capital stack
+                _capital.append(0)
+                _commas.append(1)
+                _comma_flag = False
+                words_rev_list.append(word_r.lower())
+            else:
+                _commas.append(0)
+                _capital.append(1)
+                _capital_flag = False
+                words_rev_list.append(word_r.lower())
         else:
+            words_rev_list.append(word_r.lower())
             _commas.append(0)
             _capital.append(0)
-        words_rev_list.append(word_r.lower())                       # finalize list of words
 
     string_out = ""
     for word_rl in range(len(words_rev_list)):                      # prepare output string
         if (_commas[word_rl] == 1) or (_capital[word_rl] == 1):
-            if _commas[word_rl] == 1:
+            if (_commas[word_rl] == 1) and (_capital[word_rl] == 1):
+                string_out += words_rev_list[word_rl].capitalize() + ", "
+            elif _commas[word_rl] == 1:
                 string_out += words_rev_list[word_rl] + ", "
-                if _capital[word_rl] == 1:
-                words_rev_list[word_rl][0].upper()                  # <--- try use to .capitalize()
-                # string_out += words_rev_list[word_rl] + " "
-                else:
-                    continue
             else:
-                words_rev_list[word_rl].capitalize()
-                string_out += words_rev_list[word_rl] + " "
+                string_out += words_rev_list[word_rl].capitalize() + " "
         else:
             string_out += words_rev_list[word_rl] + " "
 
-    string_out = (string_out[0: -1]).capitalize() + _tmp
+    string_out = (string_out[0: -1]) + _tmp
     return string_out
