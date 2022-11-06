@@ -4,7 +4,7 @@ class WRCoreException(Exception):
         super().__init__(message)
 
 
-def word_rotator_core(string_in):
+def word_rotator_core(string_in) -> str:
     """
     This method rotate a letters in a words in a sentence
     :param string_in:
@@ -13,7 +13,7 @@ def word_rotator_core(string_in):
     if type(string_in) is not str:                          # protection for a wrong input
         raise WRCoreException(string_in)
 
-    words_list = string_in.split(" ")                               # data preparing
+    words_list = string_in.split()                               # data preparing
     words_rev_list: list = []
     _tmp: str = ""
     _commas: list = []
