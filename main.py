@@ -3,14 +3,14 @@ from rotator import word_rotator_core as r_func
 
 try:
 	# print(r_func(False))
-	next_s: bool = False
+	next_s: bool = True
 	str_in: str = ''
-	while next_s is False:
+	while next_s is True:
 		print(r_func(input("Write your word or a sentence: ")))
 		str_in = input("To stop the rotator write 'stop', to switch rotator into file write 'file', "
 					   "to continue press Enter.: ")
 		if str_in == "stop":
-			next_s = True
+			next_s = False
 		if str_in == "file":
 			data_results = []
 			with open("./input_files/input_file.txt", encoding='utf-8') as data_rotator:
@@ -20,7 +20,7 @@ try:
 
 			with open("./output_files/output_file.txt", 'w', encoding='utf-8') as output:
 				output.write(''.join([str(item) for item in data_results]))
-
+	print("The game is over :)")
 
 except rotator.WRCoreException as err:
 	print(err)
