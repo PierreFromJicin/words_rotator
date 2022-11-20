@@ -10,40 +10,39 @@ def word_rotator_core(string_in) -> str:
     :param string_in:
     :return: string_out or Exception with message
     """
-    if type(string_in) is not str:                          # protection for a wrong input
+    if type(string_in) is not str:                                              # protection for a wrong input
         raise WRCoreException(string_in)
 
-    words_list = string_in.split()                               # data preparing
+    words_list = string_in.split()                                              # data preparing
     words_rev_list: list = []
-    _tmp: str = ""
-    _commas: list = []
-    _capital: list = []
+    _tmp: str = ""                                                              # end mark variable
+    _commas: list = []                                                          # commas stack
+    _capital: list = []                                                         # capital letters stack
     _comma_flag: bool = False
     _capital_flag: bool = False
 
-    for word in words_list:                                         # parsing of letters
+    for word in words_list:                                                     # parsing of letters
         word_l = list(word)
-        word_l.reverse()                                            # the core of rotation algorithm
+        word_l.reverse()                                                        # the core of rotation algorithm
         word_r = ""
         for _l in range(len(word_l)):
-            if word_l[_l] in ".!?":                                 # removing of end mark
+            if word_l[_l] in ".!?":                                             # removing of end mark
                 _tmp = word_l[_l]
-            elif word_l[_l] == ",":
-                # commas detector
+            elif word_l[_l] == ",":                                             # commas detector
                 _comma_flag = True
-            elif word_l[_l].isupper():                                # capital letter detector
+            elif word_l[_l].isupper():                                          # capital letter detector
                 _capital_flag = True
                 word_r += word_l[_l]
             else:
-                word_r += word_l[_l]
-        if (_comma_flag is True) or (_capital_flag is True):                                     # commas stack
+                word_r += word_l[_l]                                            # word assembly
+        if (_comma_flag is True) or (_capital_flag is True):                    # filling stacks according flags
             if (_comma_flag is True) and (_capital_flag is True):
                 _commas.append(1)
                 _capital.append(1)
                 _comma_flag = False
                 _capital_flag = False
                 words_rev_list.append(word_r.lower())
-            elif _comma_flag is True:                                 # capital stack
+            elif _comma_flag is True:
                 _capital.append(0)
                 _commas.append(1)
                 _comma_flag = False
@@ -59,7 +58,7 @@ def word_rotator_core(string_in) -> str:
             _capital.append(0)
 
     string_out = ""
-    for word_rl in range(len(words_rev_list)):                      # prepare output string
+    for word_rl in range(len(words_rev_list)):                                  # output string assembly
         if (_commas[word_rl] == 1) or (_capital[word_rl] == 1):
             if (_commas[word_rl] == 1) and (_capital[word_rl] == 1):
                 string_out += words_rev_list[word_rl].capitalize() + ", "
@@ -70,5 +69,5 @@ def word_rotator_core(string_in) -> str:
         else:
             string_out += words_rev_list[word_rl] + " "
 
-    string_out = (string_out[0: -1]) + _tmp
+    string_out = (string_out[0: -1]) + _tmp                                     # add end mark of the sentence
     return string_out
