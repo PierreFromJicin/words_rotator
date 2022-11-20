@@ -21,6 +21,7 @@ try:
 
 			with open("./output_files/output_file.txt", 'w', encoding='utf-8') as output:
 				output.write(''.join([str(item) for item in data_results]))
+				print("The output_file.txt has been created.")
 	print("The game is over :)")
 
 except rotator.WRCoreException as err:
