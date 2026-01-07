@@ -1,28 +1,45 @@
-import rotator
-from rotator import word_rotator_core as r_func
+from rotator import word_rotator_core as rotate, WRCoreException
+from pathlib import Path
 
-try:
-    # print(r_func(False))
-    next_s: bool = True
-    str_in: str = ''
-    while next_s is True:
-        print(r_func(input("Write your word or a sentence: ")))
-        str_in = input("To stop the rotator write 'stop', "
-                       "to switch rotator into file write 'file', "
-                       "to continue press Enter.: ")
-        if str_in == "stop":
-            next_s = False
-        if str_in == "file":
-            data_results = []
-            with open("./input_files/input_file.txt", encoding='utf-8') as rotator_data:
-                for item in rotator_data.readlines():
-                    line_string = str(item)
-                    data_results.append(r_func(line_string) + '\n')
 
-            with open("./output_files/output_file.txt", 'w', encoding='utf-8') as output:
-                output.write(''.join([str(item) for item in data_results]))
-                print("The output_file.txt has been created.")
-    print("The game is over :)")
+INPUT_PATH = Path("input_files/input_file.txt")
+OUTPUT_PATH = Path("output_files/output_file.txt")
 
-except rotator.WRCoreException as err:
-    print(err)
+
+def rotate_file(in_path: Path, out_path: Path) -> None:
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    results: list[str] = []
+    with in_path.open("r", encoding="utf-8") as f:
+        for line in f:
+            line = line.rstrip("\n")          # odstraním jen konec řádku
+            results.append(rotate(line) + "\n")
+
+    with out_path.open("w", encoding="utf-8") as f:
+        f.writelines(results)
+
+
+def main() -> None:
+    while True:
+        text = input("Write your word or a sentence: ")
+        print(rotate(text))
+
+        cmd = input(
+            "To stop write 'stop', to rotate from file write 'file', to continue press Enter: "
+        ).strip().lower()
+
+        if cmd == "stop":
+            print("The game is over :)")
+            return
+        elif cmd == "file":
+            rotate_file(INPUT_PATH, OUTPUT_PATH)
+            print("The output_file.txt has been created.")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except WRCoreException as err:
+        print(err)
+    except FileNotFoundError as err:
+        print(f"File error: {err}")

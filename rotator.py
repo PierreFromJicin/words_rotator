@@ -1,73 +1,50 @@
-class WRCoreException(Exception):
-    def __init__(self, exc_object):
-        message = f"Word rotator core exception: {exc_object} is not a string!"
-        super().__init__(message)
+class WRCoreException(TypeError):
+    """Výjimka pro word_rotator_core při špatném typu vstupu."""
+    pass
 
 
-def word_rotator_core(string_in) -> str:
+def word_rotator_core(text: str) -> str:
     """
-    This method rotate a letters in a words in a sentence
-    :param string_in:
-    :return: string_out or Exception with message
+    Otočí písmena v každém slově (slovo = souvislá sekvence písmen).
+    Interpunkci a mezery ponechá na místě.
+
+    Pravidla velikosti písmen:
+    - 'AGI' -> 'IGA' (zůstane ALL CAPS)
+    - 'Nexi' -> 'Ixen' (zůstane Capitalized)
+    - 'dáváš' -> 'šávád' (zůstane lowercase)
     """
-    if type(string_in) is not str:  # protection for a wrong input
-        raise WRCoreException(string_in)
+    if not isinstance(text, str):
+        raise WRCoreException(f"Word rotator core exception: {text!r} is not a string!")
 
-    words_list = string_in.split()  # data preparing
-    words_rev_list: list = []
-    _tmp: str = ""  # end mark variable
-    _commas: list = []  # commas stack
-    _capital: list = []  # capital letters stack
-    _comma_flag: bool = False
-    _capital_flag: bool = False
+    result: list[str] = []
+    i = 0
+    n = len(text)
 
-    for word in words_list:  # parsing of letters
-        word_l = list(word)
-        word_l.reverse()  # the core of rotation algorithm
-        word_r = ""
-        for _l in range(len(word_l)):
-            if word_l[_l] in "-.:;!?":  # removing of end mark
-                _tmp = word_l[_l]
-            elif word_l[_l] == ",":  # commas detector
-                _comma_flag = True
-            elif word_l[_l].isupper():  # capital letter detector
-                _capital_flag = True
-                word_r += word_l[_l]
+    while i < n:
+        ch = text[i]
+
+        # Slovo = souvislá sekvence písmen (funguje i pro diakritiku)
+        if ch.isalpha():
+            j = i
+            while j < n and text[j].isalpha():
+                j += 1
+
+            word = text[i:j]
+            reversed_word = word[::-1]
+
+            # Zachování stylu velikosti písmen
+            if word.isupper():
+                reversed_word = reversed_word.upper()
+            elif word[0].isupper():
+                reversed_word = reversed_word.lower().capitalize()
             else:
-                word_r += word_l[_l]  # word assembly
-        if (_comma_flag is True) or (_capital_flag is True):  # filling stacks according flags
-            if (_comma_flag is True) and (_capital_flag is True):
-                _commas.append(1)
-                _capital.append(1)
-                _comma_flag = False
-                _capital_flag = False
-                words_rev_list.append(word_r.lower())
-            elif _comma_flag is True:
-                _capital.append(0)
-                _commas.append(1)
-                _comma_flag = False
-                words_rev_list.append(word_r.lower())
-            else:
-                _commas.append(0)
-                _capital.append(1)
-                _capital_flag = False
-                words_rev_list.append(word_r.lower())
+                reversed_word = reversed_word.lower()
+
+            result.append(reversed_word)
+            i = j
         else:
-            words_rev_list.append(word_r.lower())
-            _commas.append(0)
-            _capital.append(0)
+            # Interpunkce, mezery, čísla… necháváme jak jsou
+            result.append(ch)
+            i += 1
 
-    string_out = ""
-    for word_rl in range(len(words_rev_list)):  # output string assembly
-        if (_commas[word_rl] == 1) or (_capital[word_rl] == 1):
-            if (_commas[word_rl] == 1) and (_capital[word_rl] == 1):
-                string_out += words_rev_list[word_rl].capitalize() + ", "
-            elif _commas[word_rl] == 1:
-                string_out += words_rev_list[word_rl] + ", "
-            else:
-                string_out += words_rev_list[word_rl].capitalize() + " "
-        else:
-            string_out += words_rev_list[word_rl] + " "
-
-    string_out = (string_out[0: -1]) + _tmp  # add end mark of the sentence
-    return string_out
+    return "".join(result)
