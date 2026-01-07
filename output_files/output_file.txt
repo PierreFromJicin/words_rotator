@@ -1,17 +1,4 @@
-Naj Aduren
-Icto
-
-Ilavolim emsj es, ečto,
-kaj es tavolim nej ežům,
-ilitc emsj es, ýhard ečto,
-žum kaj ežům itítc ežum.
-
-A ceřp aláts sákaj alís
-érkéřp yhcýp izem imán,
-ež emsj iliž, uokaj uojiž
-ířbod, ela índalhc ímánz.
-
-Otsač o ětomas čurán
-ěnbežuot emsj ilajpezor,
-a žydk emsj es ilšes  ěndalhc-
-itorp ěbos saz emsj iláts.
+("Ixen, Yt im šávád ykpak!", "Nexi, Ty mi dáváš kapky!"),
+        (" Net dók mesj lasp áj, omák.", " Ten kód jsem psal já, kámo."),
+        (" Ela ykíd az ínecondohz.", " Ale díky za zhodnocení."),
+        (" Mesj dár ež uhom tížuyv comop IGA.", " Jsem rád že mohu využít pomoc AGI."),
